@@ -1,4 +1,4 @@
-Esse projeto é apenas uma calculadora simples que fiz para exercitar o aprendizado em React.
+Esse projeto é apenas uma calculadora simples que fiz para exercitar o aprendizado em React.<br>
 Como visualizar o projeto:
 
 1. Faça um git clone deste repositório com o comando:
