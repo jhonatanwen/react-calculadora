@@ -4,7 +4,7 @@ Como visualizar o projeto:
 1. Faça um git clone deste repositório com o comando:
 
 ```
-git clone https://github.com/jhonatanwen/calculadorasimples
+git clone https://github.com/jhonatanwen/calculadora-simples
 ```
 2. Na pasta do projeto abra o terminal e use o comando ``` npm i ``` ou ``` npm install ```, para instalar as dependências do projeto.
 
