@@ -10,8 +10,8 @@
 body {
   display: flex;
   height: 100vh; /* Altura completa da tela */
-  justify-content: center; /* Centralizar horizontalmente */
-  align-items: center; /* Centralizar verticalmente */
+  justify-content: center; /* Centralizar o contéudo horizontalmente */
+  align-items: center; /* Centralizar o contéudo verticalmente */
   text-align: center;
   color: #fff;
   background: linear-gradient(to right, rgb(83,105,118), rgb(41,46,73)); /* Gradiente retirado do uiGradients */

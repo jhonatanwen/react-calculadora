@@ -5,7 +5,7 @@
     overflow: hidden; /* Esconde qualquer elemento que esteja ultrapassando os limites de altura/largura do estilo */
     display: grid; /* Formata os elementos em forma de malha */
     grid-template-columns: repeat(4,25%); /* Define que a malha seguirá uma formação de 4 elementos por linha e os elementos terão tamanho de 25% da largura do cliente (calculadora) */
-    grid-template-rows: 48px 48px 48px 48px 48px; /* Determina que, para as 5, as linhas tenham o tamanho 48px */
+    grid-template-rows: 1fr 48px 48px 48px 48px 48px; /* Determina que a linha 1 ocupe 1 fragmento inteiro do tamanho e as linhas 2 a 6 tenham o tamanho 48px */
 }
 
 

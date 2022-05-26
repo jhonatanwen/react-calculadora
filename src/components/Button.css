@@ -12,3 +12,21 @@
     border-bottom: var(--border-button);
     outline: none;
 }
+
+.button.operator {
+    background-color: #fa8231;
+}
+
+
+.button.white:active {
+    /* Muda o estilo dos elementos quando eles são clicados */
+    background-color: #ccc; 
+}
+
+.button#zero {
+    grid-column: span 2; /* Faz o conteúdo ocupar 2 colunas de espaço na linha do elemento */
+}
+
+.button#ac {
+    grid-column: span 3; /* Faz o conteúdo ocupar 3 colunas de espaço na linha do elemento */
+}

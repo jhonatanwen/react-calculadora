@@ -1,0 +1,9 @@
+.display {
+    grid-column: span 4; /* Faz o conteúdo ocupar 4 colunas de espaço na linha do elemento */
+    background-color: #0004;
+    display: flex; 
+    justify-content: flex-end; /* Alinha o conteúdo ao lado direito */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    padding: 20px; /* Da um espaçamento para o conteúdo não ficar totalmente ligado ao lado direito do elemento */
+    font-size: 2.1em; /* Define o tamanho da fonte com o 2.1x o tamanho da fonte dos outros elementos. Como é o display, geralmente a fonte é maior */
+}
