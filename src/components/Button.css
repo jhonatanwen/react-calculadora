@@ -1,0 +1,14 @@
+/* Criando variáveis */
+:root {
+    --bg-button: #f0f0f0; /* Background do botão */
+    --border-button: solid 1px #888; /* Estilo das bordas do botão */
+}
+
+.button {
+    font-size: 1.4em;
+    background-color: var(--bg-button);
+    border: none;
+    border-right: var(--border-button);
+    border-bottom: var(--border-button);
+    outline: none;
+}
