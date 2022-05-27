@@ -1,12 +1,16 @@
 import './Button.css'
 
-export default props =>
-    <button className={
-        props.className 
-        ? 
-        `button ${props.className}` 
-        : 
-        "button"
-    } id={props.id}>
+export default props => {
+    let classe =
+    props.className 
+    ? 
+    `button ${props.className}` 
+    : 
+    "button"
+
+    return (
+    <button onClick={e => props.click(props.label)} className={classe} id={props.id}>
         {props.label}
     </button>
+    )
+}

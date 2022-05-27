@@ -1,7 +1,7 @@
 /* Criando variáveis */
 :root {
-    --bg-button: #f0f0f0; /* Background do botão */
-    --border-button: solid 1px #888; /* Estilo das bordas do botão */
+    --bg-button: #D4D4D2; /* Background do botão */
+    --border-button: solid 1px #1C1C1C; /* Estilo das bordas do botão */
 }
 
 .button {
@@ -14,13 +14,16 @@
 }
 
 .button.operator {
-    background-color: #fa8231;
+    background-color: #FF9500;
 }
 
+.button.operator:active {
+    background-color: #D98F26;
+}
 
 .button.white:active {
     /* Muda o estilo dos elementos quando eles são clicados */
-    background-color: #ccc; 
+    background-color: #BBBBB9; 
 }
 
 .button#zero {
