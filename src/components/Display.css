@@ -1,6 +1,7 @@
 .display {
     grid-column: span 4; /* Faz o conteúdo ocupar 4 colunas de espaço na linha do elemento */
     background-color: #1c1c1c75 ;
+    letter-spacing: -1px; /* Faz com que o contéudo fique com as letras um pouco mais próximas. */
     display: flex; 
     justify-content: flex-end; /* Alinha o conteúdo ao lado direito */
     align-items: center; /* Centraliza o conteúdo verticalmente */

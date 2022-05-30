@@ -4,13 +4,12 @@ import Button from "../components/Button"
 import Display from '../components/Display'
 
 const initialState = {
-    displayValue: '0', // Aqui é definido que o display começa com o valor 0.
-    clearDisplay: false, // Proprieda para saber se o display deve ou não ser limpo após a entrada dos valores.
-    operation: null, // Por ser o início, não há operação, então ela é definida como nula.
-    values: [0, 0], // Define dois valores armazenados (0 e 0) para fazer a lógica de armazenamento dos valores modificados após uma operação ser adicionada.
-    current: 0 // Define que o valor inicial a ser manipulado seja o primeiro valor do Array values.
+    displayValue: '0', // Define o valor mostrado no Display.
+    clearDisplay: false, // Proprieda para saber se o Display deve ou não ser limpo após a entrada dos valores.
+    operation: null, // Define que operação está sendo usada.
+    values: [0, 0], // Define o armazenamento dois valores para que sejam feitas as operações matemáticas.
+    current: 0 // Define que o valor esta sendo manipulado no Array values.
 }
-
 
 export default class Calculator extends Component {
     state = {...initialState}
@@ -28,11 +27,64 @@ export default class Calculator extends Component {
     }
     
     setOperation(operation) {
-        console.log(operation)
+        if(this.state.current === 0) {
+            this.setState({ operation, current: 1, clearDisplay: true })
+        } else {
+            const equals = operation === "="
+            const currentOperation = this.state.operation
+            const values = [...this.state.values]
+            
+            switch(currentOperation) {
+                case "/":
+                    values[0] = values[0] / values[1]
+                    break
+                case "*":
+                    values[0] = values[0] * values[1]
+                    break
+                case "-":
+                    values[0] = values[0] - values[1]
+                    break
+                case "+":
+                    values[0] = values[0] + values[1]
+                    break
+            }
+            
+            if (isNaN(values[0]) || !isFinite(values[0])) {
+                this.clearMemory()
+                return
+            }
+            
+            values[1] = 0
+
+            this.setState({
+                displayValue: values[0],
+                operation: equals ? null : operation,
+                current: equals ? 0 : 1,
+                clearDisplay: !equals,
+                values
+            })
+        }
     }
     
     addDigit(n) {
-        console.log(n)
+        if(n === '.' && this.state.displayValue.includes('.')){
+            return
+            // Inibe que o usuário acabe adicionando mais do que um ponto no valor.
+        }
+
+        const clearDisplay = this.state.displayValue === '0'
+            || this.state.clearDisplay // Lógica para a mudança dos valores no Display serem ou não limpos.
+        const currentValue = (clearDisplay && n!=='.') ? '' : this.state.displayValue // Lógica para mudança do valor exibido no Display.
+        const displayValue = currentValue + n // Muda o valor exibido no Display com base no currentValue.
+        const i = this.state.current
+        const newValue = parseFloat(displayValue)
+        const values = [...this.state.values]
+        values[i] = newValue
+        
+        this.setState({ displayValue, clearDisplay: false })
+        this.setState({ values })
+        // Teste: 
+        console.log(values)
     }
     
     render() {
