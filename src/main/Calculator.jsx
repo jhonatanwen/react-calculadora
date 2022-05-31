@@ -92,7 +92,7 @@ export default class Calculator extends Component {
     }
     
     addDigit(n) {
-        if(n === '.' && this.state.displayValue.includes('.')){
+        if (n === '.' && this.state.displayValue.includes('.')){
             return
             // Inibe que o usuário acabe adicionando mais do que um ponto no valor.
         }
@@ -101,10 +101,12 @@ export default class Calculator extends Component {
             || this.state.clearDisplay // Lógica para a mudança dos valores no Display serem ou não limpos.
         const currentValue = (clearDisplay && n!=='.') ? '' : this.state.displayValue // Lógica para mudança do valor exibido no Display.
         const displayValue = currentValue + n // Muda o valor exibido no Display com base no currentValue.
-        if(displayValue.length > displayLength){
+        
+        if (displayValue.length > displayLength){
             return
             // Impede o usuário de digitar mais números do que o Display consegue suportar.
         }
+
         const i = this.state.current
         const newValue = parseFloat(displayValue)
         const values = [...this.state.values]
