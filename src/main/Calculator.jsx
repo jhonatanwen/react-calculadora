@@ -3,6 +3,7 @@ import { Component } from "react"
 import Button from "../components/Button"
 import Display from '../components/Display'
 
+const displayLength = 10
 const initialState = {
     displayValue: '0', // Define o valor mostrado no Display.
     clearDisplay: false, // Proprieda para saber se o Display deve ou não ser limpo após a entrada dos valores.
@@ -27,42 +28,87 @@ export default class Calculator extends Component {
     }
     
     setOperation(operation) {
-        if(this.state.current === 0) {
+        if (this.state.current === 0) {
             this.setState({ operation, current: 1, clearDisplay: true })
         } else {
             const equals = operation === "="
             const currentOperation = this.state.operation
             const values = [...this.state.values]
             
-            switch(currentOperation) {
-                case "/":
-                    values[0] = values[0] / values[1]
-                    break
-                case "*":
-                    values[0] = values[0] * values[1]
-                    break
-                case "-":
-                    values[0] = values[0] - values[1]
-                    break
-                case "+":
-                    values[0] = values[0] + values[1]
-                    break
-            }
-            
-            if (isNaN(values[0]) || !isFinite(values[0])) {
-                this.clearMemory()
-                return
-            }
-            
-            values[1] = 0
+            if (values[0].toString().indexOf("e") || equals) {
+                switch(currentOperation) {
+                    case "/":
+                        values[0] = values[0] / values[1]
+                        break
+                    case "*":
+                        values[0] = values[0] * values[1]
+                        break
+                    case "-":
+                        values[0] = values[0] - values[1]
+                        break
+                    case "+":
+                        values[0] = values[0] + values[1]
+                        break
+                    default:
+                        console.log("Operação inválida.")
+                }
 
-            this.setState({
-                displayValue: values[0],
-                operation: equals ? null : operation,
-                current: equals ? 0 : 1,
-                clearDisplay: !equals,
-                values
-            })
+                
+                if (isNaN(values[0]) || !isFinite(values[0])) {
+                    // Para previnir bug com operação.
+                    this.clearMemory()
+                    return
+                }
+                
+                
+                if (9999999999 >= values[0] || values[0] >= 0.00000001) {
+                    let i = 0
+                    
+                    while(values[0].toFixed(i).length < displayLength) {
+                        i++
+                    }
+        
+                    this.setState({ displayValue: values[0].toFixed(i) })
+                } else {
+                    // let eLocal = 
+                    // values[0]
+                    //     .toExponential()
+                    //     .toString()
+                    //     .indexOf("e")
+                    this.setState({ displayValue: values[0].toExponential(displayLength - 6) })
+                    // Previne que certas operações muito grandes
+                    
+                    
+                    if (values[0].toString().substring(2, 6) === "0000") {
+                        let prettierValue = 
+                        values[0].toString().substring(0, 1) 
+                        + 
+                        values[0].toString().substring(6, displayLength)
+                        
+                        console.log(prettierValue)
+                        
+                        values[0] = Number(prettierValue).toExponential()
+                        this.setState({ displayValue: Number(prettierValue).toExponential() })
+                    }    
+                    
+                }
+                
+
+                
+                values[1] = 0
+                
+                this.setState({
+                    operation: equals ? null : operation,
+                    current: equals ? 0 : 1,
+                    clearDisplay: !equals,
+                    values
+                })
+
+            } else {
+                this.setState({
+                    displayValue: "error"
+                })
+            }
         }
     }
     
@@ -76,6 +122,10 @@ export default class Calculator extends Component {
             || this.state.clearDisplay // Lógica para a mudança dos valores no Display serem ou não limpos.
         const currentValue = (clearDisplay && n!=='.') ? '' : this.state.displayValue // Lógica para mudança do valor exibido no Display.
         const displayValue = currentValue + n // Muda o valor exibido no Display com base no currentValue.
+        if(displayValue.length > displayLength){
+            return
+            // Impede o usuário de digitar mais números do que o Display consegue suportar.
+        }
         const i = this.state.current
         const newValue = parseFloat(displayValue)
         const values = [...this.state.values]
@@ -84,7 +134,7 @@ export default class Calculator extends Component {
         this.setState({ displayValue, clearDisplay: false })
         this.setState({ values })
         // Teste: 
-        console.log(values)
+        console.log(values, values[0].toString().length)
     }
     
     render() {
