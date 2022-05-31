@@ -70,31 +70,10 @@ export default class Calculator extends Component {
         
                     this.setState({ displayValue: values[0].toFixed(i) })
                 } else {
-                    // let eLocal = 
-                    // values[0]
-                    //     .toExponential()
-                    //     .toString()
-                    //     .indexOf("e")
                     this.setState({ displayValue: values[0].toExponential(displayLength - 6) })
-                    // Previne que certas operações muito grandes
-                    
-                    
-                    if (values[0].toString().substring(2, 6) === "0000") {
-                        let prettierValue = 
-                        values[0].toString().substring(0, 1) 
-                        + 
-                        values[0].toString().substring(6, displayLength)
-                        
-                        console.log(prettierValue)
-                        
-                        values[0] = Number(prettierValue).toExponential()
-                        this.setState({ displayValue: Number(prettierValue).toExponential() })
-                    }    
-                    
                 }
-                
+                // Previne que certas operações muito grandes de darem overflow no espaço no display.
 
-                
                 values[1] = 0
                 
                 this.setState({
@@ -133,8 +112,6 @@ export default class Calculator extends Component {
         
         this.setState({ displayValue, clearDisplay: false })
         this.setState({ values })
-        // Teste: 
-        console.log(values, values[0].toString().length)
     }
     
     render() {
