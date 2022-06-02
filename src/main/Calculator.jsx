@@ -35,59 +35,58 @@ export default class Calculator extends Component {
             const currentOperation = this.state.operation
             const values = [...this.state.values]
             
-            if (values[0].toString().indexOf("e") || equals) {
-                switch(currentOperation) {
-                    case "/":
-                        values[0] = values[0] / values[1]
-                        break
-                    case "*":
-                        values[0] = values[0] * values[1]
-                        break
-                    case "-":
-                        values[0] = values[0] - values[1]
-                        break
-                    case "+":
-                        values[0] = values[0] + values[1]
-                        break
-                    default:
-                        console.log("Operação inválida.")
-                }
-
-                
-                if (isNaN(values[0]) || !isFinite(values[0])) {
-                    // Para previnir bug com operação.
-                    this.clearMemory()
-                    return
-                }
-                
-                
-                if (9999999999 >= values[0] || values[0] >= 0.00000001) {
-                    let i = 0
-                    
-                    while(values[0].toFixed(i).length < displayLength) {
-                        i++
-                    }
-        
-                    this.setState({ displayValue: values[0].toFixed(i) })
-                } else {
-                    this.setState({ displayValue: values[0].toExponential(displayLength - 6) })
-                }
-                // Previne que certas operações muito grandes de darem overflow no espaço no display.
-
-                values[1] = 0
-                
-                this.setState({
-                    operation: equals ? null : operation,
-                    current: equals ? 0 : 1,
-                    clearDisplay: !equals,
-                    values
-                })
-
-            } else {
-                this.setState({
-                    displayValue: "error"
-                })
+            switch(currentOperation) {
+                case "/":
+                    values[0] = values[0] / values[1]
+                    break
+                case "*":
+                    values[0] = values[0] * values[1]
+                    break
+                case "-":
+                    values[0] = values[0] - values[1]
+                    break
+                case "+":
+                    values[0] = values[0] + values[1]
+                    break
+                default:
+                    console.log("Operação inválida.")
             }
+
+            
+            if (isNaN(values[0]) || !isFinite(values[0])) {
+                // Para previnir bug com operação.
+                this.clearMemory()
+                return
+            }
+            
+            
+            if (9999999999 >= values[0] && values[0] >= 0.00000001) {
+                let i = 0
+                
+                while(values[0].toFixed(i).length < displayLength) {
+                    i++
+                }
+    
+                this.setState({ displayValue: values[0].toFixed(i) })
+            } else {
+                let i = displayLength
+                
+                while(values[0].toExponential(displayLength - i).length < displayLength) {
+                    i--
+                }
+                
+                this.setState({ displayValue: values[0].toExponential(displayLength - i) })
+            }
+            // Previne que certas operações muito grandes de darem overflow no espaço no display.
+
+            values[1] = 0
+            
+            this.setState({
+                operation: equals ? null : operation,
+                current: equals ? 0 : 1,
+                clearDisplay: !equals,
+                values
+            })
         }
     }
     
